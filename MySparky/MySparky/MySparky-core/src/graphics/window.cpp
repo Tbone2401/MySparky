@@ -10,15 +10,20 @@ namespace mysparky
 	namespace graphics
 	{
 		Window::Window(const char *title, int width, int height):
-			m_Title(title), m_Width(width), m_Height(height)
+			m_Title(title), m_Width(width), m_Height(height), m_MouseX(0.0), m_MouseY(0.0)
 		{
 			if (!Init())
 			{
 				glfwTerminate();
 			}
+			// Should be filled with zeroes automatically
+			for (int i = 0; i < max_keys; i++)
+			{
+				m_Keys[i] = false;
+			}
 			for (int i = 0; i < max_buttons; i++)
 			{
-				//m_SKeys[i] = false;
+				m_MouseButtons[i] = false;
 			}
 		}
 		bool Window::Init()
@@ -40,6 +45,9 @@ namespace mysparky
 			glfwMakeContextCurrent(m_Window.get());
 			glfwSetWindowUserPointer(m_Window.get(), this);
 			glfwSetWindowSizeCallback(m_Window.get(), Window_resize);
+			glfwSetKeyCallback(m_Window.get(), Key_callback);
+			glfwSetMouseButtonCallback(m_Window.get(), Mouse_button_callback);
+			glfwSetCursorPosCallback(m_Window.get(), Cursor_position_callback);
 
 			// Put this after the Context changing
 			if (glewInit() != GLEW_OK)
@@ -67,6 +75,25 @@ namespace mysparky
 			glfwGetFramebufferSize(m_Window.get(), &m_Width, &m_Height);
 			glfwPollEvents();
 		}
+
+		bool Window::IsKeyPressed(unsigned int keyCode) const
+		{
+			if (keyCode <= max_keys && keyCode >= 0)
+			{
+				return m_Keys[keyCode];
+			}
+			// TODO logging system
+			return false;
+		}
+		bool Window::IsMouseBtnPressed(unsigned int button) const
+		{
+			if (button <= max_buttons && button >= 0)
+			{
+				return m_MouseButtons[button];
+			}
+			// TODO logging system
+			return false;
+		}
 		bool Window::Closed() const
 		{
 			return glfwWindowShouldClose(m_Window.get()) == 1;
@@ -91,7 +118,18 @@ namespace mysparky
 		{
 			Window* gameWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 			//As long as key is not released it is pressed
-			gameWindow->m_SKeys[key] = action != GLFW_RELEASE;
+			gameWindow->m_Keys[key] = action != GLFW_RELEASE;
+		}
+		void Mouse_button_callback(GLFWwindow * window, int button, int action, int mods)
+		{
+			Window* gameWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+			gameWindow->m_MouseButtons[button] = action != GLFW_RELEASE;
+		}
+		void Cursor_position_callback(GLFWwindow *window, double xpos, double ypos)
+		{
+			Window* gameWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
+			gameWindow->m_MouseX = xpos;
+			gameWindow->m_MouseY = ypos;
 		}
 	}
 }

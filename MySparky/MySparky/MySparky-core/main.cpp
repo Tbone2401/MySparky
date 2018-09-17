@@ -1,6 +1,5 @@
 #include <iostream>
 #include "src\graphics\window.h"
-#include "main.h"
 
 using namespace mysparky;
 using namespace graphics;
@@ -19,6 +18,10 @@ int main()
 	while (!window.Closed())
 	{
 		window.Clear();
+		if (window.IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
+		{
+			cout << window.GetCursorPositionX() << ", " << window.GetCursorPositionY() << endl;
+		}
 		glBegin(GL_QUADS);
 		glVertex2f(-0.5f, -0.5f);
 		glVertex2f(-0.5f, 0.5f);
