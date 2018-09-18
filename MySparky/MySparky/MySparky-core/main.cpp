@@ -1,8 +1,10 @@
 #include <iostream>
 #include "src\graphics\window.h"
+#include "src\maths\Vec2.h"
 
 using namespace mysparky;
 using namespace graphics;
+using namespace maths;
 using std::cout;
 using std::endl;
 
@@ -14,6 +16,11 @@ int main()
 	GLuint vao;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
+
+	Vec2 vec = Vec2(1.0f, 2.0f);
+	vec = vec + vec;
+	cout << vec << endl;
+
 
 	while (!window.Closed())
 	{
