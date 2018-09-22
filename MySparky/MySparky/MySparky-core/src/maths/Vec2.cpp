@@ -31,19 +31,27 @@ namespace mysparky
 
 			return *this;
 		}
-		Vec2 & Vec2::operator+(const Vec2 & rhs)
+		bool Vec2::operator==(const Vec2 & other)
+		{
+			return other.m_X == m_X && other.m_Y == m_Y;
+		}
+		bool Vec2::operator!=(const Vec2 & other)
+		{
+			return !(*this == other);
+		}
+		Vec2 Vec2::operator+=(const Vec2 & rhs)
 		{
 			return this->Add(rhs);
 		}
-		Vec2 & Vec2::operator-(const Vec2 & rhs)
+		Vec2 Vec2::operator-=(const Vec2 & rhs)
 		{
 			return this->Subtract(rhs);
 		}
-		Vec2 & Vec2::operator*(const Vec2 & rhs)
+		Vec2 Vec2::operator*=(const Vec2 & rhs)
 		{
 			return this->Multiply(rhs);
 		}
-		Vec2 & Vec2::operator/(const Vec2 & rhs)
+		Vec2 Vec2::operator/=(const Vec2 & rhs)
 		{
 			return this->Divide(rhs);
 		}

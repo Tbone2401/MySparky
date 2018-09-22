@@ -17,10 +17,18 @@ namespace mysparky
 			Vec2& Multiply(const Vec2& other);
 			Vec2& Divide(const Vec2& other);
 
-			Vec2& operator+(const Vec2& rhs);
-			Vec2& operator-(const Vec2& rhs);
-			Vec2& operator*(const Vec2& rhs);
-			Vec2& operator/(const Vec2& rhs);
+			Vec2 operator+(const Vec2& rhs) const { return Vec2(m_X + rhs.m_X, m_Y + rhs.m_Y); };
+			Vec2 operator-(const Vec2& rhs) const { return Vec2(m_X - rhs.m_X, m_Y - rhs.m_Y); };
+			Vec2 operator*(const Vec2& rhs) const { return Vec2(m_X * rhs.m_X, m_Y * rhs.m_Y); };
+			Vec2 operator/(const Vec2& rhs) const { return Vec2(m_X / rhs.m_X, m_Y / rhs.m_Y); };
+
+			bool operator==(const Vec2& other);
+			bool operator!=(const Vec2& other);
+
+			Vec2 operator+=(const Vec2& rhs);
+			Vec2 operator-=(const Vec2& rhs);
+			Vec2 operator*=(const Vec2& rhs);
+			Vec2 operator/=(const Vec2& rhs);
 
 			friend std::ostream& operator<<(std::ostream& stream, const Vec2& vector);
 		};

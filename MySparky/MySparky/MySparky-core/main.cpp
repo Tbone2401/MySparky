@@ -17,9 +17,12 @@ int main()
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
 
+	cout << _MSC_VER << endl;
+
 	Vec2 vec = Vec2(1.0f, 2.0f);
-	vec = vec + vec;
-	cout << vec << endl;
+	Vec2 vec2 = Vec2(2.0f, 2.0f);
+	vec = vec;
+	cout << (vec != vec2) << endl;
 
 
 	while (!window.Closed())
