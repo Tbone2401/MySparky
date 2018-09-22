@@ -1,6 +1,6 @@
 #include <iostream>
 #include "src\graphics\window.h"
-#include "src\maths\Vec2.h"
+#include "src\maths\Maths.h"
 
 using namespace mysparky;
 using namespace graphics;
@@ -23,7 +23,6 @@ int main()
 	Vec2 vec2 = Vec2(2.0f, 2.0f);
 	vec = vec;
 	cout << (vec != vec2) << endl;
-
 
 	while (!window.Closed())
 	{

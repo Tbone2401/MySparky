@@ -86,6 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies);glew32s.lib</AdditionalDependencies>
@@ -106,6 +107,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -128,12 +130,19 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="src\maths\Mat4.cpp" />
     <ClCompile Include="src\graphics\window.cpp" />
     <ClCompile Include="src\maths\Vec2.cpp" />
+    <ClCompile Include="src\maths\Vec3.cpp" />
+    <ClCompile Include="src\maths\Vec4.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\maths\Mat4.h" />
     <ClInclude Include="src\graphics\window.h" />
+    <ClInclude Include="src\maths\Maths.h" />
     <ClInclude Include="src\maths\Vec2.h" />
+    <ClInclude Include="src\maths\Vec3.h" />
+    <ClInclude Include="src\maths\Vec4.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
