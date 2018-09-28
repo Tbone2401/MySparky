@@ -1,13 +1,15 @@
 #pragma once
-
-#include "maths.h"
+#include "Maths.h"
 
 namespace mysparky::maths
 {
+	constexpr int C_Mat_Size = 16;
+	constexpr int C_Mat_Dimension = 4;
+
 	struct Mat4
 	{
 	public:
-		float elements[16];
+		float m_Elements[C_Mat_Size];
 		Mat4();
 		Mat4(float diagonal);
 

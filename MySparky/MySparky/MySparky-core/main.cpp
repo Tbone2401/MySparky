@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include "src\graphics\window.h"
 #include "src\maths\Maths.h"
@@ -23,6 +24,9 @@ int main()
 	Vec2 vec2 = Vec2(2.0f, 2.0f);
 	vec = vec;
 	cout << (vec != vec2) << endl;
+
+	Mat4 position = Mat4::Translation(Vec3(2, 3, 4));
+	position *= Mat4::Identity();
 
 	while (!window.Closed())
 	{

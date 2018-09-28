@@ -114,13 +114,13 @@ namespace mysparky
 			glViewport(0, 0, width, height);
 		}
 
-		void Key_callback(GLFWwindow * window, int key, int scancode, int action, int mods)
+		void Key_callback(GLFWwindow * window, int key, int /*scancode*/, int action, int /*mods*/)
 		{
 			Window* gameWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 			//As long as key is not released it is pressed
 			gameWindow->m_Keys[key] = action != GLFW_RELEASE;
 		}
-		void Mouse_button_callback(GLFWwindow * window, int button, int action, int mods)
+		void Mouse_button_callback(GLFWwindow * window, int button, int action, int /*mods*/)
 		{
 			Window* gameWindow = static_cast<Window*>(glfwGetWindowUserPointer(window));
 			gameWindow->m_MouseButtons[button] = action != GLFW_RELEASE;
