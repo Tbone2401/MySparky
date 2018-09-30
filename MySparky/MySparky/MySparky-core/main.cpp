@@ -26,7 +26,7 @@ int main()
 	cout << (vec != vec2) << endl;
 
 	Mat4 position = Mat4::Translation(Vec3(2, 3, 4));
-	position *= Mat4::Identity();
+	Vec4 column = position.m_Columns[3];
 
 	while (!window.Closed())
 	{

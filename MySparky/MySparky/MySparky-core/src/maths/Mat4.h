@@ -9,7 +9,11 @@ namespace mysparky::maths
 	struct Mat4
 	{
 	public:
-		float m_Elements[C_Mat_Size];
+		union
+		{
+			float m_Elements[C_Mat_Size];
+			Vec4 m_Columns[C_Mat_Dimension];
+		};
 		Mat4();
 		Mat4(float diagonal);
 
