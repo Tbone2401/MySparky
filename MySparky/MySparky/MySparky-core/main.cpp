@@ -2,6 +2,7 @@
 #include <iostream>
 #include "src\graphics\window.h"
 #include "src\maths\Maths.h"
+#include "src\utils\FileUtils.h"
 
 using namespace mysparky;
 using namespace graphics;
@@ -27,6 +28,9 @@ int main()
 
 	Mat4 position = Mat4::Translation(Vec3(2, 3, 4));
 	Vec4 column = position.m_Columns[3];
+
+	std::string file = read_file("main.cpp");
+	cout << file << endl;
 
 	while (!window.Closed())
 	{
