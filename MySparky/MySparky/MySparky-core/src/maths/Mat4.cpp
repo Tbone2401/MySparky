@@ -131,7 +131,7 @@ namespace mysparky::maths
 		return result;
 	}
 
-	Mat4 Mat4::Translation(const Vec3 & translation)
+	Mat4 Mat4::Translation(const Vec3 &translation)
 	{
 		Mat4 result(1.0f);
 		result.m_Elements[0 + 3 * C_Mat_Dimension] = translation.m_X;

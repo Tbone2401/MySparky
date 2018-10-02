@@ -10,6 +10,10 @@ namespace mysparky::graphics
 	{
 		m_ShaderID = load();
 	}
+	Shader::~Shader()
+	{
+		glDeleteProgram(m_ShaderID);
+	}
 
 	GLuint Shader::load()
 	{
@@ -17,8 +21,11 @@ namespace mysparky::graphics
 		GLuint vertex = glCreateShader(GL_VERTEX_SHADER);
 		GLuint fragment = glCreateShader(GL_FRAGMENT_SHADER);
 
-		const char* vertSource = read_file(m_VertPath).c_str();
-		const char* fragSource = read_file(m_FragPath).c_str();
+		std::string vertSourceString = FileUtils::read_file(m_VertPath);
+		std::string fragSourceString = FileUtils::read_file(m_FragPath);
+
+		const char* vertSource = vertSourceString.c_str();
+		const char* fragSource = fragSourceString.c_str();
 
 		glShaderSource(vertex, 1, &vertSource, NULL);
 		glCompileShader(vertex);
@@ -31,14 +38,13 @@ namespace mysparky::graphics
 			glGetShaderiv(vertex, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(vertex, length, &length, &error[0]);
-			std::cout << "Failed to compile vertex shader: " << &error[0] << std::endl;
+			std::cout << "Failed to compile vertex shader: " << std::endl << &error[0] << std::endl;
 			glDeleteShader(vertex);
 			return -1;
 		}
 
 		glShaderSource(fragment, 1, &fragSource, NULL);
 		glCompileShader(fragment);
-		GLint result;
 		glGetShaderiv(fragment, GL_COMPILE_STATUS, &result);
 		if (result == GL_FALSE)
 		{
@@ -46,19 +52,30 @@ namespace mysparky::graphics
 			glGetShaderiv(fragment, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(fragment, length, &length, &error[0]);
-			std::cout << "failed to compile fragment shader: " << &error[0] << std::endl;
+			std::cout << "failed to compile fragment shader: " << std::endl << &error[0] << std::endl;
 			glDeleteShader(fragment);
 			return -1;
 		}
+
+		glAttachShader(program, vertex);
+		glAttachShader(program, fragment);
+
+		glLinkProgram(program);
+		glValidateProgram(program);
+
+		glDeleteShader(vertex);
+		glDeleteShader(fragment);
+
+		return program;
 	}
 
-	Shader::~Shader()
+
+	void Shader::Enable() const
 	{
+		glUseProgram(m_ShaderID);
 	}
-	void Shader::enable() const
+	void Shader::Disable() const
 	{
-	}
-	void Shader::disable() const
-	{
+		glUseProgram(0);
 	}
 }

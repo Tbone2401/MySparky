@@ -2,7 +2,7 @@
 #include <iostream>
 #include "src\graphics\window.h"
 #include "src\maths\Maths.h"
-#include "src\utils\FileUtils.h"
+#include "src\graphics\Shader.h"
 
 using namespace mysparky;
 using namespace graphics;
@@ -15,42 +15,39 @@ int main()
 	Window window("MySparkyWindow", 960, 540);
 	glClearColor(0.2f, 0.3f, 0.8f, 1.0f);
 
-	GLuint vao;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+	//WARNING UGLY TEST CODE AHEAD
+	GLfloat vertices[] =
+	{
+		 0, 0, 0,
+		 8, 0, 0,
+		 0, 3, 0,		 
+		 0, 3, 0,
+		 8, 3, 0,
+		 8, 0, 0
+	};
+	GLuint vbo;
 
-	cout << _MSC_VER << endl;
+	glGenBuffers(1, &vbo);
+	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+	glEnableVertexAttribArray(0);
 
-	Vec2 vec = Vec2(1.0f, 2.0f);
-	Vec2 vec2 = Vec2(2.0f, 2.0f);
-	vec = vec;
-	cout << (vec != vec2) << endl;
+	Mat4 ortho = Mat4::Orthographic(0.0f, 16.0f, 0.0f, 9.0f, -1.0f, 1.0f);
 
-	Mat4 position = Mat4::Translation(Vec3(2, 3, 4));
-	Vec4 column = position.m_Columns[3];
+	Shader shader("src/shaders/basic.vert", "src/shaders/basic.frag");
+	shader.Enable();
 
-	std::string file = read_file("main.cpp");
-	cout << file << endl;
+	shader.SetUniformMat4("pr_matrix", ortho);
+	shader.SetUniformMat4("ml_matrix", Mat4::Rotation(45.0f, Vec3(0,0,1)));
 
 	while (!window.Closed())
 	{
 		window.Clear();
-		if (window.IsMouseBtnPressed(GLFW_MOUSE_BUTTON_LEFT))
-		{
-			cout << window.GetCursorPositionX() << ", " << window.GetCursorPositionY() << endl;
-		}
-		glBegin(GL_QUADS);
-		glVertex2f(-0.5f, -0.5f);
-		glVertex2f(-0.5f, 0.5f);
-		glVertex2f(0.5f, 0.5f);
-		glVertex2f(0.5f, -0.5f);
-		glEnd();
-
-		//glDrawArrays(GL_ARRAY_BUFFER, 0, 6);
+		glDrawArrays(GL_TRIANGLES, 0, 6);
 		window.Update();
 	}
 	window.Destroy();
 
-	system("Pause");
 	return 0;
 }
