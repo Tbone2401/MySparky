@@ -1,3 +1,8 @@
 ﻿  main.cpp
 d:\github\mysparky\mysparky\mysparky\mysparky-core\src\utils\fileutils.h(15): warning C4189: 'err': local variable is initialized but not referenced
+d:\github\mysparky\mysparky\mysparky\mysparky-core\src\graphics\buffers\buffer.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\github\mysparky\mysparky\mysparky\mysparky-core\src\graphics\buffers\indexbuffer.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+d:\github\mysparky\mysparky\mysparky\mysparky-core\src\graphics\buffers\vertexarray.h(3): warning C4067: unexpected tokens following preprocessor directive - expected a newline
+  window.cpp
+  Generating Code...
   MySparky-core.vcxproj -> D:\Github\MySparky\MySparky\MySparky\bin\Debug\MySparky-core.exe

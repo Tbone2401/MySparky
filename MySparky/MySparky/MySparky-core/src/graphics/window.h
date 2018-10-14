@@ -35,6 +35,7 @@ namespace mysparky::graphics
 		bool IsMouseBtnPressed(unsigned int button) const;
 		inline double GetCursorPositionX() const { return m_MouseX; };
 		inline double GetCursorPositionY() const { return m_MouseY; };
+		void GetMousePosition(double& x, double& y) const;
 		void PrintWindowResolution() const;
 
 	private:

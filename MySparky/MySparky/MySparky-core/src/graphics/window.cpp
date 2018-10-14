@@ -71,8 +71,13 @@ namespace mysparky
 
 		void Window::Update()
 		{
+			GLenum error = glGetError();
+			if (error != GL_NO_ERROR)
+			{
+				std::cout << "OpenGL Error: " << error << std::endl;
+			}
+
 			glfwSwapBuffers(m_Window.get());
-			glfwGetFramebufferSize(m_Window.get(), &m_Width, &m_Height);
 			glfwPollEvents();
 		}
 
@@ -101,6 +106,11 @@ namespace mysparky
 		void Window::Destroy() const
 		{
 			glfwDestroyWindow(m_Window.get());
+		}
+		void Window::GetMousePosition(double & x, double & y) const
+		{
+			x = m_MouseX;
+			y = m_MouseY;
 		}
 		void Window::PrintWindowResolution() const
 		{
